@@ -89,7 +89,6 @@
         let monthDifference = Math.floor((result / 10000)*12) // if its less than a year we multiply the difference in years by 12 to get months
         if(monthDifference === 1) { return "1 Month Remaining"} 
         else if (1 < monthDifference) {return `${monthDifference} Months Remaining`} 
-        console.log(monthDifference, dateDue)
 
         let previousMonthDays = {
             1: 31, 2: 31, 3: 28, 4: 31, 5: 30, 6: 31, 7:30, 8:31, 9:31, 10:30, 11:31, 12:30

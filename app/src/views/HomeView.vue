@@ -9,6 +9,7 @@
         @toggleSort="sortingReminders = !sortingReminders" 
         @openCreator="creatingReminder = true"
         @toggleDeleting ="deleting = !deleting"
+        @userMenu="editingUser=true"
         :currentProfileName="currentProfileName"
         > </main-menu>
         
@@ -26,6 +27,10 @@
         @removeCreator="creatingReminder = false"
         @submitForm="(reminderSubmission) => {acceptFormSubmission(reminderSubmission)}"
         ></reminder-creator>
+
+        <user-creator v-if="editingUser"
+        @closeMenu="editingUser = false"
+        > </user-creator>
 
         <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 gap-3 rounded-box">
           <delete-reminder @deleteReminderCard="(reminder) => {deleteReminderCard(reminder)}" v-for="reminder in reminders.values" :key="reminder.reminderName" :reminder="reminder"></delete-reminder>
@@ -49,10 +54,13 @@
     import SortingOptions from '@/components/SortingOptions.vue'
     import MainMenu from '@/components/MainMenu.vue'
     import DeleteReminder from '@/components/DeleteReminder.vue'
+    import userCreator from '@/components/userCreator.vue'
 
     let creatingReminder = ref(false)
     let sortingReminders = ref(false)
     let deleting = ref(false)
+    let editingUser = ref(false)
+
     // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
     const reminders = reactive({values: JSON.parse(localStorage.getItem('reminders'))}) || reactive({
       values: []
@@ -92,7 +100,7 @@
         reminders.values.push(reminderSubmission)
         localStorage.setItem("reminders", JSON.stringify(reminders.values))
       } else {
-        console.log('hi')
+        console.log('error') // BLAST ERROR BADGE!!!!!!!!!
       }
     }
 
