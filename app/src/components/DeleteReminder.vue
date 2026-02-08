@@ -1,7 +1,7 @@
 <template>
     <div class="shakey-animation">
         <div class="badge badge-xl mb-[-25%]"> {{ getDateDifference(currentDate, reminder.dateDue) }} </div>
-        <div @click="$emit('deleteReminderCard', JSON.parse(JSON.stringify(reminder)))"  class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-red-300 to-red-200 rounded-box p-3 m-3 border-[4px] border-rose-100 hover:from-rose-700 hover:to-red-700 hover:border-black flex flex-col justify-between">
+        <div @click="emit('deleteReminderCard', JSON.parse(JSON.stringify(reminder)))"  class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-red-300 to-red-200 rounded-box p-3 m-3 border-[4px] border-rose-100 hover:from-rose-700 hover:to-red-700 hover:border-black flex flex-col justify-between">
         <h2 class="funnel-sans-title text-2xl text-rose-900">
             {{ reminder.reminderName }}
         </h2>

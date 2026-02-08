@@ -1,22 +1,23 @@
 <template>
-    <div class="pb-3 flex flex-row gap-4">
-        <button class="transition duration-300 ease-in-out active:rotate-[-5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 text-black funnel-sans-subtitle p-0.5"> <img src="/images/user-icon.png" alt="profiles" class=""></button>
+    <div class="pb-3 flex flex-row gap-4 justify-between">
+        <button @click="emit('userMenu')"  class="transition duration-300 ease-in-out active:rotate-[-5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 p-1 text-black funnel-sans-subttile"> 
+            <img src="/images/user-icon.png" alt="delete" class="max-h-full"> 
+        </button>
         <h2 class="funnel-sans-title text-3xl"> Current Profile Name: {{ currentProfileName }} </h2>      
+        <button @click="emit('toggleSort')" class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 text-black funnel-sans-subtitle p-1"> <img src="/images/sort.png" alt="sorting" class=""></button>
     </div>
     <div class="flex flex-row flex-wrap justify-between">
-        <div class="flex-row flex w-[40%] gap-4">
-            <button @click="emit('openCreator')" class="btn bg-white hover:bg-emerald-300 active:bg-emerald-500 px-2 text-black funnel-sans-title p-3 text-2xl h-10 w-10 transition duration-150 ease-in-out active:rotate-[-7deg] transform"> + </button>
-            <h2 class="funnel-sans-title text-3xl"> Reminders... </h2>      
-        </div>
-        <button @click="emit('toggleSort')"  class="btn bg-white hover:bg-cyan-200 active:bg-cyan-400 px-2 text-black funnel-sans-subtitle font-black p-3 w-[20%]"> Sort... </button>
+        <button @click="emit('openCreator')" class="btn bg-white hover:bg-emerald-300 active:bg-emerald-500 px-2 text-black funnel-sans-title p-3 text-2xl h-10 w-10 transition duration-150 ease-in-out active:rotate-[-7deg] transform"> + </button>
+        <h2 class="funnel-sans-title text-3xl"> View Your Reminders... </h2>  
+        <button @click="emit('toggleDeleting')"  class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn bg-white hover:bg-red-300 active:bg-red-500 h-10 w-10 p-1 text-black funnel-sans-subttile"> <img src="/images/trashcan.png" alt="delete" class="max-h-full"> </button>    
     </div>
 </template>
 
 <script setup>
-    const emit = defineEmits(['toggleSort', 'openCreator'])
+    const emit = defineEmits(['toggleSort', 'openCreator', 'toggleDeleting', 'userMenu'])
     defineProps({
         currentProfileName: {
-            type: Text,
+            type: String,
             required: true,
         }
     })

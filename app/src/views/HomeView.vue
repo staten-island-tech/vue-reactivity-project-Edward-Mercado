@@ -1,15 +1,14 @@
 <template>
     <section class="w-full min-h-full p-5 flex flex-col bg-slate-900">
 
-        <title-screen
-        @toggleDeleting ="deleting = !deleting"
-        ></title-screen>
+        <title-screen></title-screen>
     
         <div v-if="!deleting" class="w-full">
           <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5 text-xs">. </div> <!-- line. -->
           <main-menu 
         @toggleSort="sortingReminders = !sortingReminders" 
         @openCreator="creatingReminder = true"
+        @toggleDeleting ="deleting = !deleting"
         :currentProfileName="currentProfileName"
         > </main-menu>
         
@@ -36,7 +35,8 @@
           <reminder-card v-for="reminder in reminders.values" :key="reminder.reminderName" :reminder="reminder"> </reminder-card>
         </div>
 
-        <div v-if="deleting" class="fixed bg-red-600/90 text-rose-950 funnel-sans-title rounded-box text-3xl p-5"> Click on a reminder to delete it! </div>
+        <div v-if="deleting" class="fixed bg-red-600/90 text-rose-950 funnel-sans-title rounded-box text-xl left-5 h-10 flex items-center px-2"> Click on a reminder to delete it! </div>
+        <button v-if="deleting" @click="deleting=false"  class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn hover:bg-red-300 active:bg-red-500 w-10 h-10 fixed bg-white text-black funnel-sans-title rounded-box text-3xl p-5 right-5"> X </button>
 
     </section>
 </template>
