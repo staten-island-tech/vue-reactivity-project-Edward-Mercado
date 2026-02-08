@@ -1,9 +1,10 @@
 <template>
-    <div class="fixed w-[95%] h-[95%] top-[2.5%] left-[2.5%] glass rounded-box p-5 flex flex-col z-100">
+    <div class="fixed w-[98%] h-[95%] top-[2.5%] left-[1%] glass rounded-box p-5 flex flex-col z-100">
         <div class="flex flex-row flex-nowrap justify-between items-center">
             <h1 class="funnel-sans-title text-5xl text-cyan-300"> Create A Reminder </h1>
             <button @click="emit('removeCreator')" class="btn bg-white hover:bg-red-300 active:bg-red-500 px-2 text-black funnel-sans-title p-3 text-2xl h-10 w-10 transition duration-150 ease-in-out active:rotate-[7deg] transform"> X </button>
         </div>
+        <div class="bg-cyan-200 w-full h-[2%] rounded-full my-5 text-xs text-center text-cyan-200">. </div> <!-- line. -->
         <form @submit.prevent="submitForm()" class="flex flex-col p-5 w-full h-full justify-between items-center">
             <div class="flex flex-col w-full h-[20%]">    
                 <label for="reminderName" class="py-2 funnel-sans-title text-2xl text-cyan-200 text-left">Name of Reminder</label>

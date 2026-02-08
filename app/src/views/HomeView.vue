@@ -30,6 +30,7 @@
 
         <user-creator v-if="editingUser"
         @closeMenu="editingUser = false"
+        :profiles="profileSamples"
         > </user-creator>
 
         <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 gap-3 rounded-box">
@@ -65,7 +66,8 @@
     let sortingReminders = ref(false)
     let deleting = ref(false)
     let editingUser = ref(false)
-
+    let profileSamples = reactive([{name: 'a'}, {name: 'b'}, {name: 'c'}, {name: 'd'}, {name: 'e'}, {name: 'f'}])
+    //let profileSamples = reactive([])
     // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
     const reminders = reactive({values: JSON.parse(localStorage.getItem('reminders'))}) || reactive({
       values: []
