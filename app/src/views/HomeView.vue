@@ -9,7 +9,7 @@
         @toggleSort="sortingReminders = !sortingReminders" 
         @openCreator="creatingReminder = true"> </main-menu>
 
-        <sorting-options v-if="sortingReminders"></sorting-options>
+        <sorting-options @sortReminders="(sortingType) => {sortReminders(sortingType)}" v-if="sortingReminders"></sorting-options>
 
         <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5"> </div> <!-- line. -->
 
@@ -28,6 +28,10 @@
 
     let creatingReminder = ref(false)
     let sortingReminders = ref(false)
+
+    function sortReminders(type) {
+      console.log(type)
+    }
 
 </script>
 
