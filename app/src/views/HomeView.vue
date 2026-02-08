@@ -61,8 +61,8 @@
     import SortingOptions from '@/components/SortingOptions.vue'
     import MainMenu from '@/components/MainMenu.vue'
     import DeleteReminder from '@/components/DeleteReminder.vue'
-    import userCreator from '@/components/userCreator.vue'
-    import badReminder from '@/components/badReminder.vue'
+    import userCreator from '@/components/UserCreator.vue'
+    import badReminder from '@/components/BadReminder.vue'
 
     let creatingReminder = ref(false)
     let badReminderCreated = ref(false)
@@ -75,7 +75,7 @@
     const reminders = reactive({values: JSON.parse(localStorage.getItem('reminders'))}) || reactive({
       values: []
     })
-    let currentProfileName = "Edward"
+    let currentProfileName = "None"
 
     function deleteProfile(profile) {
       let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
@@ -83,13 +83,12 @@
     }
 
     function pushProfile(profile) {
-      profileSamples.push(profile)
       currentProfileName = profile.name
+      profileSamples.unshift(profile)
       editingUser.value = false
     }
 
     function selectProfile(profile) {
-      console.log(profile)
       let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
       currentProfileName = targetProfile.name
       editingUser.value = false

@@ -3,7 +3,7 @@
         <button @click="emit('userMenu')"  class="transition duration-300 ease-in-out active:rotate-[-5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 p-1 text-black funnel-sans-subttile"> 
             <img src="/images/user-icon.png" alt="user-icon" class="max-h-full"> 
         </button>
-        <h2 class="funnel-sans-title text-3xl"> Current Profile Name: {{ currentProfileName }} </h2>      
+        <h2 class="funnel-sans-title text-3xl text-center"> Current Profile Name: {{ currentProfileName }} </h2>      
         <button @click="emit('toggleSort')" class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 text-black funnel-sans-subtitle p-1"> <img src="/images/sort.png" alt="sorting" class=""></button>
     </div>
     <div class="flex flex-row flex-wrap justify-between">
