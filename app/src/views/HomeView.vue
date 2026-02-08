@@ -9,8 +9,7 @@
         @toggleSort="sortingReminders = !sortingReminders" 
         @openCreator="creatingReminder = true"
         @toggleDeleting ="deleting = !deleting"
-        @userMenu="editingUser=true"
-        :currentProfileName="currentProfileName"
+        @userMenu="editingUser = true"
         > </main-menu>
         
         <sorting-options @sortReminders="(sortingType) => {sortReminders(sortingType)}" v-if="sortingReminders"></sorting-options>
@@ -29,11 +28,11 @@
         ></reminder-creator>
 
         <user-creator v-if="editingUser"
+        :profiles="profileObjects"
         @closeMenu="editingUser = false"
         @deleteProfile="(profile) => {deleteProfile(profile)}"
         @selectProfile="(profile) => {selectProfile(profile)}"
         @pushProfile="(profile) => {pushProfile(profile)}"
-        :profiles="profileObjects"
         > </user-creator>
 
         <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 gap-3 rounded-box">
