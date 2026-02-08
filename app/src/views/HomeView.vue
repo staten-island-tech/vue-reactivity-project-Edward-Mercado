@@ -94,9 +94,37 @@
       }
     }
 
+    function isLeapYear(year) {
+      if(year % 4 === 0) {
+        if(year % 100 !== 0) {
+          return true
+        } else {
+          if(year%400 === 0) {
+            return true
+          } 
+          return false
+        }
+      } return false
+    }
+
+    function isValidDate(reminderSubmission) {
+      let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      let maxMonthDays = daysInMonth[reminderSubmission.dateDue.m - 1]
+      if(maxMonthDays >= reminderSubmission.dateDue.d) {
+        return true
+      } else {
+        if(maxMonthDays === 28 && reminderSubmission.dateDue.d === 29) {
+          if(isLeapYear(reminderSubmission.dateDue.y)) {
+            return true
+          }
+        }
+        return false
+      }
+    }
+
     function acceptFormSubmission(reminderSubmission) {
       creatingReminder.value = false
-      if(!reminders.values.find((reminder) => reminder.reminderName === reminderSubmission.reminderName)) {
+      if(!reminders.values.find((reminder) => reminder.reminderName === reminderSubmission.reminderName)  && isValidDate(reminderSubmission)) {
         reminders.values.push(reminderSubmission)
         localStorage.setItem("reminders", JSON.stringify(reminders.values))
       } else {
