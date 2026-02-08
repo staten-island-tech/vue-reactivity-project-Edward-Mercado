@@ -5,7 +5,7 @@
         <div class="flex flex-col h-[40%] w-full">
             <h2 class="text-cyan-950 text-xl funnel-sans-title text-center italic"> has </h2>
             <h2 class="text-cyan-800 text-4xl funnel-sans-title text-center"> { {{ profile.reminders.length }} } </h2>
-            <h2 class="text-cyan-950 text-xl funnel-sans-title text-center italic"> reminder{{ plural() }} </h2>
+            <h2 class="text-cyan-950 text-xl funnel-sans-title text-center italic"> reminder{{ plural(profile.reminders.length) }} </h2>
         </div>
 
         <div class="w-full flex flex-row justify-between items-center">
@@ -25,8 +25,8 @@
         }
     })
 
-    function plural() {
-        if(profile.reminders.length === 1) {
+    function plural(num) {
+        if(num === 1) {
             return ""
         } return "s"
     }
