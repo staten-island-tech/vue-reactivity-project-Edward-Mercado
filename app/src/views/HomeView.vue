@@ -43,6 +43,9 @@
         <div v-if="deleting" class="fixed bg-red-600/90 text-rose-950 funnel-sans-title rounded-box text-xl left-5 h-10 flex items-center px-2"> Click on a reminder to delete it! </div>
         <button v-if="deleting" @click="deleting=false"  class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn hover:bg-red-300 active:bg-red-500 w-10 h-10 fixed bg-white text-black funnel-sans-title rounded-box text-3xl p-5 right-5"> X </button>
 
+        <bad-reminder v-if="badReminderCreated"
+        @closeMenu="badReminderCreated = false"></bad-reminder>
+
     </section>
 </template>
 
@@ -55,8 +58,10 @@
     import MainMenu from '@/components/MainMenu.vue'
     import DeleteReminder from '@/components/DeleteReminder.vue'
     import userCreator from '@/components/userCreator.vue'
+    import badReminder from '@/components/badReminder.vue'
 
     let creatingReminder = ref(false)
+    let badReminderCreated = ref(false)
     let sortingReminders = ref(false)
     let deleting = ref(false)
     let editingUser = ref(false)
@@ -128,7 +133,7 @@
         reminders.values.push(reminderSubmission)
         localStorage.setItem("reminders", JSON.stringify(reminders.values))
       } else {
-        console.log('error') // BLAST ERROR BADGE!!!!!!!!!
+        badReminderCreated.value = true
       }
     }
 
