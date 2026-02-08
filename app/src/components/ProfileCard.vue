@@ -4,7 +4,7 @@
 
         <div class="flex flex-col h-[40%] w-full">
             <h2 class="text-cyan-950 text-xl funnel-sans-title text-center italic"> has </h2>
-            <h2 class="text-cyan-800 text-4xl funnel-sans-title text-center"> {30} </h2>
+            <h2 class="text-cyan-800 text-4xl funnel-sans-title text-center"> { {{ profile.reminders.length }} } </h2>
             <h2 class="text-cyan-950 text-xl funnel-sans-title text-center italic"> reminders </h2>
         </div>
 

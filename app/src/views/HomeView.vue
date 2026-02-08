@@ -33,15 +33,15 @@
         @deleteProfile="(profile) => {deleteProfile(profile)}"
         @selectProfile="(profile) => {selectProfile(profile)}"
         @pushProfile="(profile) => {pushProfile(profile)}"
-        :profiles="profileSamples"
+        :profiles="profileObjects"
         > </user-creator>
 
         <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 gap-3 rounded-box">
-          <delete-reminder @deleteReminderCard="(reminder) => {deleteReminderCard(reminder)}" v-for="reminder in reminders.values" :key="reminder.reminderName" :reminder="reminder"></delete-reminder>
+          <delete-reminder @deleteReminderCard="(reminder) => {deleteReminderCard(reminder)}" v-for="reminder in reminders" :key="reminder.reminderName" :reminder="reminder"></delete-reminder>
         </div>
 
         <div v-else class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-slate-800/70 to-slate-600/70 flex flex-row flex-wrap p-1 gap-3 rounded-box">
-          <reminder-card v-for="reminder in reminders.values" :key="reminder.reminderName" :reminder="reminder"> </reminder-card>
+          <reminder-card v-for="reminder in reminders" :key="reminder.reminderName" :reminder="reminder"> </reminder-card>
         </div>
 
         <div v-if="deleting" class="fixed bg-red-600/90 text-rose-950 funnel-sans-title rounded-box text-xl left-5 h-10 flex items-center px-2"> Click on a reminder to delete it! </div>
@@ -69,29 +69,53 @@
     let sortingReminders = ref(false)
     let deleting = ref(false)
     let editingUser = ref(false)
-    let profileSamples = reactive([{name: '012345678901', reminders:[]}, {name: 'b', reminders:[]}, {name: 'c', reminders:[]}, {name: 'd', reminders:[]}, {name: 'e', reminders:[]}, {name: 'f', reminders:[]}])
-    //let profileSamples = reactive([])
-    // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
-    const reminders = reactive({values: JSON.parse(localStorage.getItem('reminders'))}) || reactive({
-      values: []
-    })
-    let currentProfileName = "None"
 
-    function deleteProfile(profile) {
-      let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
-      profileSamples.splice(profileSamples.indexOf(targetProfile), 1)
+    let profileObjects = JSON.parse(localStorage.getItem("profiles")) || []
+    //let profileObjects = reactive([])
+    // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
+
+    function getReminders() {
+      let selectedProfile = profileObjects.find(profile => profile.selected === true)
+      if(!selectedProfile) {
+        return reactive([])
+      }
+      return reactive(selectedProfile.reminders)
+    }
+    function getProfileName() {
+      let selectedProfile = profileObjects.find(profile => profile.selected === true)
+      if (!selectedProfile) {
+        return "N/A"
+      } else {
+        return selectedProfile.name
+      }
     }
 
-    function pushProfile(profile) {
-      currentProfileName = profile.name
-      profileSamples.unshift(profile)
-      editingUser.value = false
+    let reminders = getReminders() || reactive([])
+    let currentProfileName = getProfileName()
+
+    function deleteProfile(profile) {
+      let targetProfile = profileObjects.find((pro) => pro.name === profile.name)
+      profileObjects.splice(profileObjects.indexOf(targetProfile), 1)
     }
 
     function selectProfile(profile) {
-      let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
-      currentProfileName = targetProfile.name
+      reminders = reactive(profile.reminders)
+      currentProfileName = profile.name
+
+      let targetProfile = profileObjects.find((pro) => pro.name === profile.name)
+      profileObjects.forEach((profile) => profile.selected = false)
+      targetProfile.selected = true
       editingUser.value = false
+      saveData()
+    }
+
+    function pushProfile(profile) {
+      profileObjects.unshift(profile)
+      selectProfile(profile)
+    }
+
+    function saveData() {
+      localStorage.setItem("profiles", JSON.stringify(profileObjects))
     }
 
     function dateToNum(date) { // pardon me this function is gonna be bad
@@ -111,13 +135,13 @@
 
     function sortReminders(type) {
       if(type === 'alphabetically'){
-        reminders.values.sort((a, b) => a.reminderName.localeCompare(b.reminderName))
+        reminders.sort((a, b) => a.reminderName.localeCompare(b.reminderName))
       } else if (type === 'urgency') {
-        reminders.values.sort((a, b) => b.urgency - a.urgency)
+        reminders.sort((a, b) => b.urgency - a.urgency)
       } else if(type==="date-due") {
-        reminders.values.sort((a,b) => dateToNum(a.dateDue) - dateToNum(b.dateDue))
+        reminders.sort((a,b) => dateToNum(a.dateDue) - dateToNum(b.dateDue))
       } else if(type==="date-created") {
-        reminders.values.sort((a,b) => dateToNum(a.dateCreated) - dateToNum(b.dateCreated))
+        reminders.sort((a,b) => dateToNum(a.dateCreated) - dateToNum(b.dateCreated))
       }
     }
 
@@ -151,24 +175,24 @@
 
     function acceptFormSubmission(reminderSubmission) {
       creatingReminder.value = false
-      if(!reminders.values.find((reminder) => reminder.reminderName === reminderSubmission.reminderName)  && isValidDate(reminderSubmission)) {
-        reminders.values.push(reminderSubmission)
-        localStorage.setItem("reminders", JSON.stringify(reminders.values))
+      if(!reminders.find((reminder) => reminder.reminderName === reminderSubmission.reminderName)  && isValidDate(reminderSubmission)) {
+        reminders.push(reminderSubmission)
+        saveData()
       } else {
         badReminderCreated.value = true
       }
     }
 
     function deleteReminderCard(reminder) {
-      const value = reminders.values.find((reminderValue) => reminderValue.reminderName === reminder.reminderName)
+      const value = reminders.find((reminderValue) => reminderValue.reminderName === reminder.reminderName)
 
-      reminders.values.splice(reminders.values.indexOf(value), 1)
-      localStorage.setItem("reminders", JSON.stringify(reminders.values))
+      reminders.splice(reminders.indexOf(value), 1)
+      saveData()
     }
 
     function deleteAllReminders() {
-      reminders.values.length = 0
-      localStorage.setItem("reminders", JSON.stringify(reminders.values))
+      reminders.length = 0
+      saveData()
     }
 
 </script>

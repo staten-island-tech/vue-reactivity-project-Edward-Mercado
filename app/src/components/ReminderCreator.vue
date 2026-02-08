@@ -17,7 +17,7 @@
                     <h2 class="text-4xl funnel-sans-title text-cyan-200"> / </h2>
                     <input v-model="reminder.dateDue.d" placeholder="DD"  min="1" max="31" type="number" class="w-[20%] h-[80%] rounded-2xl text-center text-3xl lg:text-5xl input validator">
                     <h2 class="text-4xl funnel-sans-title text-cyan-200"> / </h2>
-                    <input v-model="reminder.dateDue.y" placeholder="YYYY"   min="2000" max="3000" type="number" class="w-[40%] h-[80%] rounded-2xl text-center text-3xl lg:text-5xl input validator">
+                    <input v-model="reminder.dateDue.y" placeholder="YYYY"   min="0" max="10000" type="number" class="w-[40%] h-[80%] rounded-2xl text-center text-3xl lg:text-5xl input validator">
                 </div>
             </div>
             <div class="h-[20%] w-full flex flex-row justify-center gap-4 items-center">
