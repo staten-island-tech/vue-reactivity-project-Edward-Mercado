@@ -33,12 +33,12 @@
     const emit = defineEmits(['removeCreator', 'submitForm'])
     let today = new Date()
     const reminder = reactive({
-        reminderName: 'hi',
-        urgency: 100,
+        reminderName: '',
+        urgency: 0,
         dateDue: {
-            y: 2026,
-            m: 3,
-            d: 20,
+            y: '',
+            m: '',
+            d: '',
         },
         dateCreated: {
             y: today.getFullYear(),
