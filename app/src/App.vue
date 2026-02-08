@@ -1,4 +1,4 @@
-<template class="w-full h-full">
+<template class="w-full min-h-full">
     <RouterView/>
 </template>
 <script setup></script>
