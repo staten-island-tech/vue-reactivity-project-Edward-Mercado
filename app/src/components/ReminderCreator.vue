@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div class="h-[20%] w-full flex flex-row justify-center gap-4 items-center">
-                <label for="date-due" class="py-2 funnel-sans-title text-2xl text-cyan-200"> On a scale of 1-100, how urgent is this reminder? </label>
-                <input v-model="reminder.urgency" placeholder="Rating..."  min="1" max="100" type="number" class="w-[25%] h-[80%] rounded-2xl text-center text-3xl lg:text-5xl input validator"></input>
+                <label for="date-due" class="py-2 funnel-sans-title text-2xl text-cyan-200"> Out of 100, how urgent is this reminder? </label>
+                <input v-model="reminder.urgency" placeholder="Rating..."  min="0" max="100" type="number" class="w-[25%] h-[80%] rounded-2xl text-center text-3xl lg:text-5xl input validator"></input>
             </div>
             <input type="submit"  class="btn bg-white hover:bg-cyan-200 active:bg-cyan-400 px-2 text-black funnel-sans-subtitle font-black w-full items-center">
         </form>
@@ -33,12 +33,12 @@
     const emit = defineEmits(['removeCreator', 'submitForm'])
     let today = new Date()
     const reminder = reactive({
-        reminderName: '',
-        urgency: 0,
+        reminderName: 'hi',
+        urgency: 100,
         dateDue: {
-            y: '',
-            m: '',
-            d: '',
+            y: 2026,
+            m: 3,
+            d: 20,
         },
         dateCreated: {
             y: today.getFullYear(),
