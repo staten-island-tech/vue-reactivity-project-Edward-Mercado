@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="badge badge-xl mb-[-25%]"> {{ getDateDifference(currentDate, reminder.dateDue) }} </div>
+    <div class="w-[300px] h-[400px]">
+        <div class="badge badge-xl mb-[-15%]"> {{ getDateDifference(currentDate, reminder.dateDue) }} </div>
         <div class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-cyan-300 to-cyan-200 rounded-box p-3 m-3 border-[4px] border-cyan-100 flex flex-col justify-between">
         <h2 class="funnel-sans-title text-2xl text-cyan-900">
             {{ reminder.reminderName }}
