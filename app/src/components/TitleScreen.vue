@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-    const emit = defineEmits(['toggleDeleting'])
+
 </script>
 
 <style scoped>

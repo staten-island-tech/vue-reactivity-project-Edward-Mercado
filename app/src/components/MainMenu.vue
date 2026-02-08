@@ -1,8 +1,8 @@
 <template>
     <div class="pb-3 flex flex-row gap-4 justify-between">
-        <button @click="emit('userMenu')"  class="transition duration-300 ease-in-out active:rotate-[-5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 p-1 text-black funnel-sans-subttile"> 
-            <img src="/images/user-icon.png" alt="delete" class="max-h-full"> 
-        </button>
+        <router-link to="/create-user" @click="emit('userMenu')"  class="transition duration-300 ease-in-out active:rotate-[-5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 p-1 text-black funnel-sans-subttile"> 
+            <img src="/images/user-icon.png" alt="user-icon" class="max-h-full"> 
+        </router-link>
         <h2 class="funnel-sans-title text-3xl"> Current Profile Name: {{ currentProfileName }} </h2>      
         <button @click="emit('toggleSort')" class="transition duration-300 ease-in-out active:rotate-[5deg] transform btn bg-white hover:bg-cyan-200 active:bg-cyan-400 h-10 w-10 text-black funnel-sans-subtitle p-1"> <img src="/images/sort.png" alt="sorting" class=""></button>
     </div>

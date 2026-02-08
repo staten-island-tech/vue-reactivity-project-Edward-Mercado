@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CreateReminder from '@/views/CreateReminder.vue'
+import CreateUser from '@/views/CreateUser.vue'
 import HomeView from '@/views/HomeView.vue'
 
 const router = createRouter({
@@ -9,6 +9,10 @@ const router = createRouter({
       path: '/',
       name: "home",
       component: HomeView
+    },{
+      path: '/create-user',
+      name: "create-user",
+      component: CreateUser
     }
   ],
 })
