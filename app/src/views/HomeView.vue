@@ -30,6 +30,9 @@
 
         <user-creator v-if="editingUser"
         @closeMenu="editingUser = false"
+        @deleteProfile="(profile) => {deleteProfile(profile)}"
+        @selectProfile="(profile) => {selectProfile(profile)}"
+        @pushProfile="(profile) => {pushProfile(profile)}"
         :profiles="profileSamples"
         > </user-creator>
 
@@ -66,13 +69,31 @@
     let sortingReminders = ref(false)
     let deleting = ref(false)
     let editingUser = ref(false)
-    let profileSamples = reactive([{name: 'a'}, {name: 'b'}, {name: 'c'}, {name: 'd'}, {name: 'e'}, {name: 'f'}])
+    let profileSamples = reactive([{name: '012345678901', reminders:[]}, {name: 'b', reminders:[]}, {name: 'c', reminders:[]}, {name: 'd', reminders:[]}, {name: 'e', reminders:[]}, {name: 'f', reminders:[]}])
     //let profileSamples = reactive([])
     // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
     const reminders = reactive({values: JSON.parse(localStorage.getItem('reminders'))}) || reactive({
       values: []
     })
     let currentProfileName = "Edward"
+
+    function deleteProfile(profile) {
+      let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
+      profileSamples.splice(profileSamples.indexOf(targetProfile), 1)
+    }
+
+    function pushProfile(profile) {
+      profileSamples.push(profile)
+      currentProfileName = profile.name
+      editingUser.value = false
+    }
+
+    function selectProfile(profile) {
+      console.log(profile)
+      let targetProfile = profileSamples.find((pro) => pro.name === profile.name)
+      currentProfileName = targetProfile.name
+      editingUser.value = false
+    }
 
     function dateToNum(date) { // pardon me this function is gonna be bad
       // i wrote the above comment before writing the function

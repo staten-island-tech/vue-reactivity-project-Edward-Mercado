@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-
   const emits = defineEmits(['sortReminders'])
 </script>
 

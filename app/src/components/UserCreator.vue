@@ -10,12 +10,15 @@
         <div class="w-full h-full p-1 flex flex-col gap-4">
             <h2 class="funnel-sans-title text-2xl text-cyan-300"> Existing Profiles</h2>
             <div class="carousel rounded-box gap-2">
-            <profile-card v-if="profiles.length > 0" v-for="profile in profiles" :profile="profile"> </profile-card>
+            <profile-card 
+            @deleteProfile="(profile) => $emit('deleteProfile', profile)" 
+            @selectProfile="(profile) => $emit('selectProfile', profile)"
+            v-if="profiles.length > 0" v-for="profile in profiles" :profile="profile"> </profile-card>
             <no-profiles v-else> </no-profiles>
             </div>
         </div>
 
-        <profile-form></profile-form>
+        <profile-form @submitNewProfile="(profile) => submitNewProfile(profile)"></profile-form>
     </div>
 </template>
 
@@ -24,13 +27,17 @@
     import NoProfiles from './NoProfiles.vue';
     import ProfileForm from './ProfileForm.vue';
 
-    const emit = defineEmits(['closeMenu'])
+    const emit = defineEmits(['closeMenu', 'pushProfile', 'deleteProfile', 'selectProfile'])
 
     defineProps({
       profiles: {
         type: Array,
         required: true,
     }})
+
+    function submitNewProfile(profile) {
+        emit('pushProfile', profile)
+    }
 </script>
 
 <style scoped>
