@@ -1,7 +1,7 @@
 <template>
 
     <div class="pt-5">
-        <h2 class="funnel-sans-title text-2xl italic"> Sorting Options</h2>
+        <h2 class="funnel-sans-title text-2xl italic text-white"> Sorting Options</h2>
         <div class="flex flex-row flex-wrap justify-between">
         <button @click="$emit('sortReminders', 'alphabetically')" class="btn bg-white hover:bg-cyan-200 active:bg-cyan-400 px-2 text-black funnel-sans-subtitle font-black p-3 lg:w-[22%] w-[49%] my-2"> Alphabetically </button>
         <button @click="$emit('sortReminders', 'urgency')" class="btn bg-white hover:bg-cyan-200 active:bg-cyan-400 px-2 text-black funnel-sans-subtitle font-black p-3 lg:w-[22%] w-[49%] my-2"> Urgency </button>
