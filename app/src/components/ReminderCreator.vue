@@ -48,8 +48,11 @@
     })
 
     function submitForm() {
-        emit('submitForm', reminder)
-    }
+        emit('submitForm', JSON.parse(JSON.stringify(reminder)))
+    } // so when you make reactive elements like this they are "proxies"
+    // what are proxies? stuff stored in reactive or ref
+    // but i dont like them because they look ugly when i inspect element
+    // :) so i converted it back #codingisanartnotaskill
 
 </script>
 

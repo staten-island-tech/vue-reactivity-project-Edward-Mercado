@@ -1,7 +1,5 @@
 <template>
-    <div @click="$emit('deleteReminderCard', 'hi')"  class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-red-300 to-red-200 rounded-box p-3 m-3 border-[4px] border-rose-100 flex flex-col justify-between
-    shakey-animation
-    ">
+    <div @click="$emit('deleteReminderCard', 'hi')"  class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-red-300 to-red-200 rounded-box p-3 m-3 border-[4px] border-rose-100 flex flex-col justify-between shakey-animation">
         <h2 class="funnel-sans-title text-2xl text-rose-900">
             Title Sample
         </h2>
@@ -47,7 +45,7 @@
 }
 
 .shakey-animation {
-    animation: shakeyAnimation 1s ease-in infinite forwards;
+    animation: shakeyAnimation 0.2s ease-in infinite forwards;
 }
 
 @keyframes shakeyAnimation {
@@ -55,10 +53,10 @@
         transform: rotate(0deg)
     }
     25% {
-        transform: rotate(-4deg)
+        transform: rotate(-0.5deg)
     }
     75% {
-        transform: rotate(4deg)
+        transform: rotate(0.5deg)
     }
 }
 </style>

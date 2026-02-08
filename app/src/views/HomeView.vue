@@ -4,16 +4,17 @@
         <title-screen
         @toggleDeleting ="deleting = !deleting"
         ></title-screen>
-
-        <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5"> </div> <!-- line. -->
     
-        <main-menu 
+        <div v-if="!deleting" class="w-full">
+          <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5 text-xs">. </div> <!-- line. -->
+          <main-menu 
         @toggleSort="sortingReminders = !sortingReminders" 
         @openCreator="creatingReminder = true"> </main-menu>
-
+    
         <sorting-options @sortReminders="(sortingType) => {sortReminders(sortingType)}" v-if="sortingReminders"></sorting-options>
+        </div>
 
-        <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5"> </div> <!-- line. -->
+        <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5 text-xs">. </div> <!-- line. -->
 
         <reminder-creator v-if="creatingReminder"
         @removeCreator="creatingReminder = false"
@@ -46,14 +47,15 @@
     let sortingReminders = ref(false)
     let deleting = ref(false)
     
-    const reminders = ['hi', 'hi', 'hi','hi', 'hi', 'hi']
+    const reminders = localStorage.getItem('reminders') || []
 
     function sortReminders(type) {
       console.log(type)
     }
 
     function acceptFormSubmission(reminderSubmission) {
-      console.log(reminderSubmission)
+      reminders.push(reminderSubmission)
+      console.log(reminders)
       creatingReminder.value = false
     }
 
