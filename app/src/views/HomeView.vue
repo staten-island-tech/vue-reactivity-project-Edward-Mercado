@@ -10,6 +10,7 @@
         @openCreator="creatingReminder = true"
         @toggleDeleting ="deleting = !deleting"
         @userMenu="editingUser = true"
+        :currentProfileName="currentProfileName"
         > </main-menu>
         
         <sorting-options @sortReminders="(sortingType) => {sortReminders(sortingType)}" v-if="sortingReminders"></sorting-options>
@@ -21,6 +22,10 @@
         </div>
 
         <div class="bg-cyan-200 w-full h-[1%] rounded-full my-5 text-xs">. </div> <!-- line. -->
+
+        <save-warning v-if="saveWarning"> 
+          hi
+        </save-warning>
 
         <reminder-creator v-if="creatingReminder"
         @removeCreator="creatingReminder = false"
@@ -62,42 +67,59 @@
     import DeleteReminder from '@/components/DeleteReminder.vue'
     import userCreator from '@/components/UserCreator.vue'
     import badReminder from '@/components/BadReminder.vue'
+    import SaveWarning from '@/components/SaveWarning.vue'
 
     let creatingReminder = ref(false)
     let badReminderCreated = ref(false)
     let sortingReminders = ref(false)
     let deleting = ref(false)
     let editingUser = ref(false)
+    let saveWarning = ref(false)
 
-    let profileObjects = JSON.parse(localStorage.getItem("profiles")) || []
+    let profileObjects = reactive(JSON.parse(localStorage.getItem("profiles"))) || []
     //let profileObjects = reactive([])
     // reactive({values: JSON.parse(localStorage.getItem('reminders'))}) ||
 
     function getReminders() {
       let selectedProfile = profileObjects.find(profile => profile.selected === true)
       if(!selectedProfile) {
+        saveWarning.value = true
         return reactive([])
       }
+      saveWarning.value = false
       return reactive(selectedProfile.reminders)
     }
     function getProfileName() {
       let selectedProfile = profileObjects.find(profile => profile.selected === true)
       if (!selectedProfile) {
+        saveWarning.value = true
         return "N/A"
-      } else {
-        return selectedProfile.name
       }
+      saveWarning.value = false
+      return selectedProfile.name
     }
 
-    let reminders = getReminders() || reactive([])
+    let reminders = getReminders()
     let currentProfileName = getProfileName()
 
     function deleteProfile(profile) {
       let targetProfile = profileObjects.find((pro) => pro.name === profile.name)
       profileObjects.splice(profileObjects.indexOf(targetProfile), 1)
+      if(profileObjects.length !== 0) {
+        saveWarning.value = false
+        profileObjects[0].selected = true
+        reminders = getReminders()
+        currentProfileName = getProfileName()
+      } else {
+        saveWarning.value = true
+        reminders = reactive([])
+        currentProfileName = "N/A"
+      }
+      saveData()
     }
 
     function selectProfile(profile) {
+      saveWarning.value = false
       reminders = reactive(profile.reminders)
       currentProfileName = profile.name
 
@@ -109,6 +131,7 @@
     }
 
     function pushProfile(profile) {
+      saveWarning.value = false
       profileObjects.unshift(profile)
       selectProfile(profile)
     }
