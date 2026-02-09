@@ -1,6 +1,6 @@
 <template>
     <div class="flex lg:flex-row w-full justify-between items-center flex-col gap-4">
-        <h1 class='funnel-sans-title text-8xl text-center bg-gradient-to-l from-white to-cyan-200 inline-block text-transparent bg-clip-text w-full'> Reminder Tracker</h1>
+        <h1 class='funnel-sans-title lg:text-8xl text-5xl text-center bg-gradient-to-l from-white to-cyan-200 inline-block text-transparent bg-clip-text w-full'> Reminder Tracker</h1>
     </div>
 </template>
 

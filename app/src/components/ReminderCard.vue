@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[300px] h-[400px]">
+    <div class="w-[230px] h-[400px]">
         <div class="badge badge-xl mb-[-15%]"> {{ getDateDifference(currentDate, reminder.dateDue) }} </div>
         <div class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-cyan-300 to-cyan-200 rounded-box p-3 m-3 border-[4px] border-cyan-100 flex flex-col justify-between">
         <h2 class="funnel-sans-title text-2xl text-cyan-900">
@@ -84,12 +84,16 @@
         if(yearDifference === 1) { return "1 Year Remaining"} 
         else if (1 < yearDifference && yearDifference < 10) {return `${yearDifference} Years Remaining`} 
         else if (yearDifference >= 10) { return "You have time." }
-
-
+    
         let monthDifference = dateDue.m - currentDate.m
+
         if(dateDue.d < currentDate.d) {
             monthDifference--
         }
+        if(dateDue.y > currentDate.y) {
+            monthDifference += 12
+        }
+
         if(monthDifference === 1) { return "1 Month Remaining"} 
         else if (1 < monthDifference) {return `${monthDifference} Months Remaining`} 
 

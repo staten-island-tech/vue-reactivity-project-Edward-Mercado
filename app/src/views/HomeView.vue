@@ -40,11 +40,11 @@
         @pushProfile="(profile) => {pushProfile(profile)}"
         > </user-creator>
 
-        <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 gap-3 rounded-box">
+        <div v-if="deleting" class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-rose-800/30 to-rose-600/30 flex flex-row flex-wrap p-1 lg:gap-3 rounded-box">
           <delete-reminder @deleteReminderCard="(reminder) => {deleteReminderCard(reminder)}" v-for="reminder in reminders" :key="reminder.reminderName" :reminder="reminder"></delete-reminder>
         </div>
 
-        <div v-else class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-slate-800/70 to-slate-600/70 flex flex-row flex-wrap p-1 gap-3 rounded-box">
+        <div v-else class="w-full min-h-[100vh] h-auto bg-gradient-to-tr from-slate-800/70 to-slate-600/70 flex flex-row flex-wrap p-1 lg:gap-3 rounded-box">
           <reminder-card v-for="reminder in reminders" :key="reminder.reminderName" :reminder="reminder"> </reminder-card>
         </div>
 
