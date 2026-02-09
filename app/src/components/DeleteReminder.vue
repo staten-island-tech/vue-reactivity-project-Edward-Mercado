@@ -1,5 +1,5 @@
 <template>
-    <div class="shakey-animation">
+    <div class="shakey-animation w-[230px] h-[400px]">
         <div class="badge badge-xl mb-[-25%]"> {{ getDateDifference(currentDate, reminder.dateDue) }} </div>
         <div @click="emit('deleteReminderCard', JSON.parse(JSON.stringify(reminder)))"  class="min-w-[200px] w-[20%] min-h-[300px] h-[30%] bg-gradient-to-t from-red-300 to-red-200 rounded-box p-3 m-3 border-[4px] border-rose-100 hover:from-rose-700 hover:to-red-700 hover:border-black flex flex-col justify-between">
         <h2 class="funnel-sans-title text-2xl text-rose-900">
@@ -86,7 +86,14 @@
         else if (1 < yearDifference && yearDifference < 10) {return `${yearDifference} Years Remaining`} 
         else if (yearDifference >= 10) { return "You have time." }
 
-        let monthDifference = Math.floor((result / 10000)*12) // if its less than a year we multiply the difference in years by 12 to get months
+
+        let monthDifference = dateDue.m - currentDate.m
+        if(dateDue.d < currentDate.d) {
+            monthDifference--
+        }
+        if(dateDue.y > currentDate.y) {
+            monthDifference += 12
+        }
         if(monthDifference === 1) { return "1 Month Remaining"} 
         else if (1 < monthDifference) {return `${monthDifference} Months Remaining`} 
 
